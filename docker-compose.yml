@@ -27,21 +27,6 @@ services:
       - /usr/src/app/node_modules
     command: npm run start:dev auth # overrides CMD from dockerfile
 
-  users:
-    build:
-      context: ./
-      dockerfile: ./apps/users/Dockerfile
-    env_file:
-      - .env
-    depends_on:
-      - rabbitmq
-      - postgres
-      - redis
-    volumes:
-      - .:/usr/src/app # any change to base folder should be reflected
-      - /usr/src/app/node_modules
-    command: npm run start:dev users # overrides CMD from dockerfile
-
   gateway-api:
     build:
       context: ./
@@ -53,7 +38,6 @@ services:
     depends_on:
       - rabbitmq
       - auth
-      - users
     volumes:
       - .:/usr/src/app # any change to base folder should be reflected
       - /usr/src/app/node_modules

@@ -10,7 +10,7 @@ async function bootstrap() {
   const app = await NestFactory.createMicroservice(AuthModule, {
     transport: Transport.RMQ,
     options: {
-      urls: [`amqp://user:password@localhost:5672`],
+      urls: [`amqp://${USER}:${PASSWORD}@${HOST}`],
       queue: 'AUTH_QUEUE',
       queueOptions: {
         durable: true, // queue survives broker restart
