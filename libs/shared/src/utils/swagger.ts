@@ -7,8 +7,8 @@ import {
 
 export function SwaggerDocs(app: INestApplication) {
   const SwaggerConfig = new DocumentBuilder()
-    .setTitle('VPOS-API')
-    .setDescription('The vpos api documentation description')
+    .setTitle('SAMPLE-API')
+    .setDescription('The sample api documentation')
     .setVersion('1.0')
     .addBearerAuth()
     .build();

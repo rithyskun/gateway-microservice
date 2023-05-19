@@ -7,7 +7,7 @@ import { RabbitMqServiceInterface } from '../interfaces/rabbitmq.service.interfa
 export class RabbitMqService implements RabbitMqServiceInterface {
   constructor(private readonly configService: ConfigService) {}
 
-  getRmqOptions(queue: string): RmqOptions {
+  getRmqOptions(queue: string, noAck = false): RmqOptions {
     const USER = this.configService.get('RABBITMQ_USER');
     const PASSWORD = this.configService.get('RABBITMQ_PASS');
     const HOST = this.configService.get('RABBITMQ_HOST');
@@ -16,7 +16,7 @@ export class RabbitMqService implements RabbitMqServiceInterface {
       transport: Transport.RMQ,
       options: {
         urls: [`amqp://${USER}:${PASSWORD}@${HOST}`],
-        noAck: false,
+        noAck,
         queue,
         queueOptions: {
           durable: true,

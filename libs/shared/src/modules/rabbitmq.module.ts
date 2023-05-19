@@ -1,14 +1,13 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientProxyFactory, Transport } from '@nestjs/microservices';
-
-import { RabbitMqService } from '../services/rabbitmq.service';
+import { RabbitMqService } from '@app/shared';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: './.env',
+      envFilePath: '.env',
     }),
   ],
   providers: [RabbitMqService],
@@ -29,6 +28,7 @@ export class RabbitMqModule {
             options: {
               urls: [`amqp://${USER}:${PASSWORD}@${HOST}`],
               queue,
+              noAck: false,
               queueOptions: {
                 durable: true, // queue survives broker restart
               },

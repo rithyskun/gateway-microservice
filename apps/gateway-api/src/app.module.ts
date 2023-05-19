@@ -3,11 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { UsersController } from './users/user.controller';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-
-const USER = process.env.RABBITMQ_USER;
-const PASSWORD = process.env.RABBITMQ_PASS;
-const HOST = process.env.RABBITMQ_HOST;
+import { AuthController } from './auth/auth.controller';
+import { RabbitMqModule } from '@app/shared';
 
 @Module({
   imports: [
@@ -15,22 +12,10 @@ const HOST = process.env.RABBITMQ_HOST;
       isGlobal: true,
       envFilePath: '.env',
     }),
-
-    ClientsModule.register([
-      {
-        name: 'AUTH_SERVICE',
-        transport: Transport.RMQ,
-        options: {
-          urls: [`amqp://${USER}:${PASSWORD}@${HOST}`],
-          queue: 'AUTH_QUEUE',
-          queueOptions: {
-            durable: true, // queue survives broker restart
-          },
-        },
-      },
-    ]),
+    RabbitMqModule.registerRmq('AUTH_SERVICE', 'AUTH_QUEUE'),
+    RabbitMqModule.registerRmq('NOTIFICATION_SERVICE', 'NOTIFICATION_QUEUE'),
   ],
-  controllers: [AppController, UsersController],
+  controllers: [AppController, UsersController, AuthController],
   providers: [AppService],
   exports: [AppService],
 })

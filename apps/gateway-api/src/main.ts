@@ -5,7 +5,7 @@ import helmet from 'helmet';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 import * as basicAuth from 'express-basic-auth';
-import { SwaggerDocs } from 'libs';
+import { SwaggerDocs } from '@app/shared';
 
 const logger = new Logger();
 const port = parseInt(process.env.HTTP_PORT);

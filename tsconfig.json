@@ -29,6 +29,18 @@
       ],
       "@app/user-dto/*": [
         "libs/user-dto/src/*"
+      ],
+      "@app/common/common": [
+        "libs/common/src"
+      ],
+      "@app/common/common/*": [
+        "libs/common/src/*"
+      ],
+      "@app/shared": [
+        "libs/shared/src"
+      ],
+      "@app/shared/*": [
+        "libs/shared/src/*"
       ]
     }
   }

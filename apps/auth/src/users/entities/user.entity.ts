@@ -32,6 +32,9 @@ export class User {
   @Column()
   roles: string;
 
+  @Column({ default: Date.now() })
+  createdAt: string;
+
   constructor(partial: Partial<User>) {
     Object.assign(this, partial);
   }

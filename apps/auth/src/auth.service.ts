@@ -1,9 +1,12 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
+import { Injectable } from '@nestjs/common';
+import { LoginDto } from '@app/shared';
+import { UsersService } from './users/users.service';
 
 @Injectable()
 export class AuthService {
-  handleLogin(payload: any) {
-    return true;
+  constructor(private readonly userService: UsersService) {}
+
+  async handleLogin(payload: LoginDto): Promise<LoginDto> {
+    return payload;
   }
 }
